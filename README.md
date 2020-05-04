@@ -6,7 +6,7 @@ The goal of this project is to gain insight into what makes an online review use
 
 # 01 - Data Collection and Extraction
 
-In this I read in, clean, and filter the data. The Reviews date all the way back to 2012, and there may be some confounding factors between how many useful votes a review has gotten and how old it is, so I filter out older reviews. Additionally, since the end goal is an interface that will tell how useful is, and obviously that conflicts with time so ideally I want to tell how useful a review will be over a fixed period of time. Restaurant reviews are the largest subset of the data, so I narrow our data to reviews that fall into the restaurant category. The final dataframe consisting of reviews contains just over 3 million reviews.
+In this I read in, clean, and filter the data. The Reviews date all the way back to 2012, and there may be some confounding factors between how many useful votes a review has gotten and how old it is, so I filter out older reviews. Additionally, since the end goal is an interface that will tell how useful is, and obviously that conflicts with time so ideally I want to tell how useful a review will be over a fixed period of time. Restaurant reviews are the largest subset of the data, so I narrow our data to reviews that fall into the restaurant category. The final dataframe consisting of reviews contains just over 3 million rows.
 
 # 02 - Exploratory Data Analysis
 

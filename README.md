@@ -1,8 +1,6 @@
 # NLP Analysis into what makes a Yelp Restaurant Review Useful
 
-The goal of this project is to gain insight into what makes a yelp restaurant review useful based off of the text.
-Given that there are many different flavors of useful reviews, we're going to try and extract the commonalities that
-fruitful reviews share in hopes of eventually creating a model that predicts whether or not a user's review will be useful.
+The goal of this project is to gain insight into what makes an online review useful. Given that there are many different styles of writing, we're going to try and extract the commonalities that the most useful reviews share in hopes of eventually creating a model that predicts how useful a review will be.
 
 # Notebook Summaries
 

@@ -1,14 +1,12 @@
 # NLP Analysis into what makes a Yelp Restaurant Review Useful
 
-The goal of this project is to gain insight into what makes a yelp restaurant review useful based off of the text.
-Given that there are many different flavors of useful reviews, we're going to try and extract the commonalities that
-fruitful reviews share in hopes of eventually creating a model that predicts whether or not a user's review will be useful.
+The goal of this project is to gain insight into what makes an online review useful. Given that there are many different styles of writing, we're going to try and extract the commonalities that the most useful reviews share in hopes of eventually creating a model that predicts how useful a review will be.
 
 # Notebook Summaries
 
 # 01 - Data Collection and Extraction
 
-In this I read in, clean, and filter the data. The Reviews date all the way back to 2012, and there may be some confounding factors between how many useful votes a review has gotten and how old it is, so I filter out older reviews. Additionally, since the end goal is an interface that will tell how useful is, and obviously that conflicts with time so ideally I want to tell how useful a review will be over a fixed period of time. Restaurant reviews are the largest subset of the data, so I narrow our data to reviews that fall into the restaurant category. The final dataframe consisting of reviews contains just over 3 million reviews.
+In this I read in, clean, and filter the data. The Reviews date all the way back to 2012, and there may be some confounding factors between how many useful votes a review has gotten and how old it is, so I filter out older reviews. Additionally, since the end goal is an interface that will tell how useful is, and obviously that conflicts with time so ideally I want to tell how useful a review will be over a fixed period of time. Restaurant reviews are the largest subset of the data, so I narrow our data to reviews that fall into the restaurant category. The final dataframe consisting of reviews contains just over 3 million rows.
 
 # 02 - Exploratory Data Analysis
 
@@ -24,8 +22,16 @@ In summary, I was able to extract and engineer many different aspects of what ma
 
 # 03 - Machine Learning Prototype
 
-In notebook, the goal was to create several models to predict approximately how useful a review will be. Because log of the number of useful votes (log_useful) had the highest correlation with our engineered NLP features, I decided that this would be the best target variable to predict. Unfortunately, since this makes it a regression problem, the interpretability of our results goes down (as opposed to if it were classification). Nonetheless, I was still able to create several successful models and interpret the results. 
+In notebook, the goal was to create several models to predict approximately how useful a review will be. Because log of the number of useful votes (log_useful) had the highest correlation with our engineered NLP features, I decided that this would be the best target variable to predict. Unfortunately, since this makes it a regression problem, the interpretability of our results goes down (as opposed to if it were classification). Nonetheless, I still modeled the data with several variants of the original feature matrix and interpretted the results visually. 
 
-I used 6-fold cross validation, along with PCA feature selection to determine the best matrix for predicability. The models that I used were linear regression as a baseline, and eventually a more complex random forest regressor. The most important features for our model proved to be those discovered in the EDA section of this project, namely the sentence info characters. For a more in depth analysis of the model and its utility take a look at the notebook, where I use many different metrics to evaluate its effectiveness and give a brief explanation of most of these metrics if you're not familiar. 
+I used 6-fold cross validation, along with PCA feature selection to determine the best matrix for predicability. In order to set up PCA, I initialized a baseline linear regression model using two simple features that I engineered in the previous notebook which provided valuable insight. From there, I normalized the data and ran linear regression on the entire matrix, and examined the weights of the coefficients for each feature to gain insight into how each feature played a role in the final prediction. 
+
+Since the goal of PCA is to extract your features containing the most variance, it is an important step to remove features/columns with high multicollinearity. You may have features with high variance, but if they're describing the same thing, then PCA may hone in on these but ultimately won't tell you very much and you'll end up losing information in the process. In order to account for this, I calculated the variance inflation factor (VIF) for each feature. Essentially, this builds off of linear regression by quantifying the severity of multicollinearity conducted in regression analysis. I dropped 10 columnns, or about 1/4 of the original matrix, and from there ran my cross validation, where I iteratively started with just one principal component for the PCA matrix, and built all the way up to 20, where the training error and subsequent validation error bottomed out around. 
+
+Finally, I was left with three main data matrices, the original (40 features), the VIF reduced matrix (287features), and the PCA matrix (20 features). 
+
+From there I moved onto a more advanced, non-linear tree-based model of random forest regression. After gridsearch hyperparameter tuning and optimization, I ended up with six different models in total, three linear regression and three random forest, where for each of the two subsets, one model is trained on on of the three data matrices. Random forest allowed me to visualize which features were most pertinent for each data matrix.
+
+In order to evaluate performance from each model, I looked at the $r^2$ coefficient, RMSE training and test error, and residual plots. In general, the results seemed to suggest that the more complex the model, the better its performance. 
 
 

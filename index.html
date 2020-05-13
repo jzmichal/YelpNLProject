@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html lang = "en">
+  <head>
+    <meta charset = "UTF-8">
+    <title>Yelp NLP Review Predictor</title>
+
+  </head>
+
+
+  <body style = "width: 60% margin-left: 50%">
+    <form action = "/" method = "post">
+      <input class = "form-control", type = "text", name = "text",
+      Placeholder = "Type or paste review text here">
+      <input class = "btn btn-primary", type = "submit", value = "Make Prediction">
+    </form>
+    {% if review %}
+      <p>The predicted number of useful votes is:{{review}}<p>
+    {% endif %}
+  </body>
+</html>

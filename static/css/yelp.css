@@ -1,0 +1,70 @@
+.main{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rform{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    //border: 1px solid black;
+}
+
+h1{
+    font-size: 3.3em;
+    margin: 1em;
+    font-family: Brush Script MT, Brush Script Std, cursive;
+}
+textarea{
+    width: 90%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.txt-center {
+    text-align: center;
+}
+.hide {
+    display: none;
+}
+
+.clear {
+    float: none;
+    clear: both;
+}
+
+.rating {
+    width: 90px;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+    position: relative;
+}
+
+.rating > label {
+    float: right;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 1.1em;
+    cursor: pointer;
+    color: #000;
+}
+
+.rating > label:hover,
+.rating > label:hover ~ label,
+.rating > input.radio-btn:checked ~ label {
+    color: transparent;
+}
+
+.rating > label:hover:before,
+.rating > label:hover ~ label:before,
+.rating > input.radio-btn:checked ~ label:before,
+.rating > input.radio-btn:checked ~ label:before {
+    content: "\2605";
+    position: absolute;
+    left: 0;
+    color: #FFD700;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yelp ML</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/yelp.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="main">
+    <h1><i class="fas fa-utensils"></i> Restaurant Review</h1>
+    <form action = "{{url_for('predict')}}" method = "POST">
+        <div class="rform">
+            <textarea name = "review" placeholder="Type your review here."></textarea>
+            <br/>
+            <div class="txt-center">
+        </div>
+        </div>
+        <div class="rating">
+            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+            <label for="star5">☆</label>
+            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+            <label for="star4">☆</label>
+            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+            <label for="star3">☆</label>
+            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+            <label for="star2">☆</label>
+            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+            <label for="star1">☆</label>
+            <div class="clear"></div>
+        </div>
+        <input type="submit" value="Make Prediction">
+    </form>
+    {% if predicted %}
+      <p>The predicted number of useful votes is:{{predicted}}</p>
+    {% endif %}
+    </div>
+</body>
+</html>

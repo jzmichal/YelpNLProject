@@ -15,7 +15,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from sklearn.decomposition import PCA
 from sklearn.model_selection import GridSearchCV
-from sklearn import preprocessing
+from sklearn.preprocessing import StandardScaler
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 from statsmodels.tools.tools import add_constant
 from spacy.lang.en import English
@@ -145,8 +145,17 @@ review_df.drop(columns = ["index", "cleaned_review", "text"], inplace = True)
 X,y = review_df.drop(columns = ["log_useful"]), review_df.log_useful
 #Scale data so that each feature follows a normal distribution,
 #with mean 0 and standard deviation 1
-X_standarized = preprocessing.scale(X)
-X_standarized = pd.DataFrame(X_standarized, columns = X.columns)
+"""
+Now we go through the process of transforming the data matrix. The ultimate goal is to perform PCA
+on the data matrix to hone in on the best features, and in order to do that we need to normalize the data
+and remove features with high multicollinearity.
+
+First, we will calculate the variance inflation factor (VIF) for each column, and remove columns with a value
+greater than 100, which indicates very high multicollinearity. Since this is specific to ordinary least squares,
+which is invariant in that the substantive answer does not change with standarization/normalization of the data,
+we will standarize the data afterwards. Finally, after these two step's we're ready to perform PCA. 
+"""
+
 remove_cols = []
 def removeInflatedCols(df):
     """
@@ -162,7 +171,10 @@ def removeInflatedCols(df):
             df.drop(columns = row[1], inplace = True)
     return df
 
-X_standarized = removeInflatedCols(X_standarized)
+X_vif = removeInflatedCols(X)
+scaler = StandardScaler()
+X_standarized = scaler.fit_transform(X_vif)
+X_standarized = pd.DataFrame(X_standarized, columns = X.columns)
 
 #Create PCA instance to transform our matrix to PCA version
 pca = PCA(n_components=20)
@@ -193,5 +205,7 @@ rf.fit(X_pca, y.values.ravel())
 new_model = RandomForestRegressor(**rf.best_params_)
 new_model.fit(X_pca, y.values.ravel())
 
-rf_model = pickle.dumps(new_model)
-pca_model = pickle.dumps(pca)
+#Save models for deployment
+joblib.dump(scalar, 'scalar.pkl')
+joblib.dump(new_model, 'rf_model.pkl')
+joblib.dump(pca, 'pca_transformer.pkl')

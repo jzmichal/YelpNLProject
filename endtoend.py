@@ -162,8 +162,8 @@ def removeInflatedCols(df):
     Remove columns/features with a Variance Inflation Factor of > 100.
     """
     X = add_constant(df)
-    VIF_series = [[variance_inflation_factor(X_standarized.values, i),
-    X_standarized.columns[i]] for i in range(X_standarized.shape[1])]
+    VIF_series = [[variance_inflation_factor(X.values, i),
+    X.columns[i]] for i in range(X.shape[1])]
     for row in VIF_series:
         print(row[0])
         if row[0] > 100 and row[1] != "const":

@@ -18,6 +18,7 @@ import pandas as pd
 import readability
 import syntok.segmenter as segmenter
 
+print("loading")
 class TestSum(unittest.TestCase):
 
     def test_onlyEnglish(self):
@@ -66,3 +67,6 @@ class TestSum(unittest.TestCase):
             {'c': [4, 6, 7, 8, 9],
              'd': [4, 3, 4, 5, 4]})
         self.assertEqual(removeInflatedCols(df_1), df_1_cleaned, "Remove first two columns")
+
+if __name__ == '__main__':
+    unittest.main()

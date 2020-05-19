@@ -41,10 +41,10 @@ for chunk in review_reader:
     chunk.stars = chunk.stars.astype(int)
     chunk.text = chunk.text.astype(str)
     reviews.append(chunk)
-
 review_df = pd.concat(reviews)
 review_df.drop(columns = ["cool", "date", "funny", "review_id",
                 "user_id", "year", "nb_days", "business_id"], inplace = True)
+review_df = review_df.sample(frac=.1, replace = False,random_state=42)
 
 
 #filter out reviews that aren't in english
@@ -153,7 +153,7 @@ and remove features with high multicollinearity.
 First, we will calculate the variance inflation factor (VIF) for each column, and remove columns with a value
 greater than 100, which indicates very high multicollinearity. Since this is specific to ordinary least squares,
 which is invariant in that the substantive answer does not change with standarization/normalization of the data,
-we will standarize the data afterwards. Finally, after these two step's we're ready to perform PCA. 
+we will standarize the data afterwards. Finally, after these two step's we're ready to perform PCA.
 """
 
 remove_cols = []

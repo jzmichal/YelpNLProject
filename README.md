@@ -32,7 +32,7 @@ I used 6-fold cross validation, along with PCA feature selection to determine th
 
 Since the goal of PCA is to extract your features containing the most variance, it is an important step to remove features/columns with high multicollinearity. You may have features with high variance, but if they're describing the same thing, then PCA may hone in on these but ultimately won't tell you very much and you'll end up losing information in the process. In order to account for this, I calculated the variance inflation factor (VIF) for each feature. Essentially, this builds off of linear regression by quantifying the severity of multicollinearity conducted in regression analysis. I dropped 10 columnns, or about 1/4 of the original matrix, and from there ran my cross validation, where I iteratively started with just one principal component for the PCA matrix, and built all the way up to 20, where the training error and subsequent validation error bottomed out around. 
 
-Finally, I was left with three main data matrices, the original (40 features), the VIF reduced matrix (287features), and the PCA matrix (20 features). 
+Finally, I was left with three main data matrices, the original (40 features), the VIF reduced matrix (28 features), and the PCA matrix (20 features). 
 
 From there I moved onto a more advanced, non-linear tree-based model of random forest regression. After gridsearch hyperparameter tuning and optimization, I ended up with six different models in total, three linear regression and three random forest, where for each of the two subsets, one model is trained on on of the three data matrices. Random forest allowed me to visualize which features were most pertinent for each data matrix.
 

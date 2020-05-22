@@ -1,8 +1,12 @@
 # NLP Analysis into what makes a Yelp Restaurant Review Useful
 
-The goal of this project is to gain insight into what makes an online review useful. Given that there are many different styles of writing, we're going to try and extract the commonalities that the most useful reviews share in hopes of eventually creating a model that predicts how useful a review will be.
+The goal of this project is to gain insight into what makes an online review useful. Given that there are many different styles of writing, we're going to try and extract the commonalities that the most useful reviews share in hopes of eventually creating a model that predicts how useful a review will be. I deployed a web application containing my model that can be accessed here:
 
-# Notebook Summaries
+ec2-54-244-57-203.us-west-2.compute.amazonaws.com
+
+### Tools used: Python, HTML, CSS, Docker, AWS EC2, sklearn, matplotlib/seaborn, flask, numpy, pandas, nltk, spacy, statsmodels, linear regression, randomforest, PCA, VIF
+
+# File / Notebook Summaries
 
 # 01 - Data Collection and Extraction
 
@@ -35,3 +39,10 @@ From there I moved onto a more advanced, non-linear tree-based model of random f
 In order to evaluate performance from each model, I looked at the $r^2$ coefficient, RMSE training and test error, and residual plots. In general, the results seemed to suggest that the more complex the model, the better its performance. 
 
 
+# endtoend.py / tests.py
+
+Production style code conglomeration of the three notebooks. This code runs independently from the command line and is well tested from tests.py, which tests every function in endtoend.py, and have several test cases for each function, covering edge cases. There is useful logging and documentation at critical points throughout the file, as well as each function having a docstring description. This file represents the entire ETL end-to-end pipeline.
+
+# App.py / templates / static / Dockerfile
+
+This series of files represent the back and front end of the web application. I pickled my transformations and models and used flask to create a simple user interface for my API. templates and static contain html code for the front end interaction and display of the user interface. Then, in order to allow anyone else to spin up my application without installing the right tools or libraries, I containerized my flask application with Docker. Finally, I hosted the docker container on an AWS ec2 instance for the public to use. 

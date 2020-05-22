@@ -21,6 +21,8 @@ from statsmodels.tools.tools import add_constant
 from spacy.lang.en import English
 from pandas.io.json import json_normalize
 from sklearn.ensemble import RandomForestRegressor
+from platform import python_version
+
 
 #Read in Reviews and write to a dataframe
 reviews=[]
@@ -44,7 +46,6 @@ for chunk in review_reader:
 review_df = pd.concat(reviews)
 review_df.drop(columns = ["cool", "date", "funny", "review_id",
                 "user_id", "year", "nb_days", "business_id"], inplace = True)
-review_df = review_df.sample(frac=.1, replace = False,random_state=42)
 
 
 #filter out reviews that aren't in english

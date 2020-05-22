@@ -1,16 +1,20 @@
-from flask import Flask, request, render_template
-from sklearn.externals import joblib
+
+import readability
+import nltk
+import joblib
+import pandas as pd
 import numpy as np
+from readability import getmeasures
+from flask import Flask, request, render_template
 import syntok.segmenter as segmenter
 from sklearn.decomposition import PCA
 from sklearn.ensemble import RandomForestRegressor
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from pandas.io.json import json_normalize
-
-import readability
-import pandas as pd
+nltk.download('vader_lexicon')
 
 app = Flask(__name__)
+scaler = joblib.load(open('scaler.pkl', 'rb'))
 pca_transformer = joblib.load(open('pca_transformer.pkl', 'rb'))
 rf_model = joblib.load(open('rf_model.pkl', 'rb'))
 
@@ -82,7 +86,8 @@ def predict():
         sentiments_df = json_normalize(sentiments)
         df["compound"] = sentiments_df["compound"]
 
-        df_transformed = pca_transformer.transform(df)
+        df_scaled = scaler.transform(df)
+        df_transformed = pca_transformer.transform(df_scaled)
         prediction = rf_model.predict(df_transformed)  # runs globally loaded model on the data
         print(prediction)
         return render_template('home.html', predicted = round(np.exp(prediction[0]), 2))

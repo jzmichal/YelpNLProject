@@ -2,7 +2,7 @@
 
 The goal of this project is to gain insight into what makes an online review useful. Given that there are many different styles of writing, we're going to try and extract the commonalities that the most useful reviews share in hopes of eventually creating a model that predicts how useful a review will be. I deployed a web application containing my model that can be accessed here:
 
-[See how useful your yelp review is!](https://ec2-54-244-57-203.us-west-2.compute.amazonaws.com)
+[See how useful your yelp review is!](ec2-54-244-57-203.us-west-2.compute.amazonaws.com)
 
 ### Tools used: Python, HTML, CSS, Docker, AWS EC2, sklearn, matplotlib/seaborn, flask, numpy, pandas, nltk, spacy, statsmodels, linear regression, randomforest, PCA, VIF
 
